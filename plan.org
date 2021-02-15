@@ -1,0 +1,14 @@
+#+TITLE: Cluster - A rust clicker game
+#+AUTHOR: Zeno
+
+* Idea
++ Cluster is a clicker game in rust
++ a number get bigger through clicking
++ player can buy items to autoclick and get more points
++ is a CLI application, no GUI
+
+* Plan
++ display function, in an endless loop drawing the game to the terminal
++ function to update point counter
+  + can take in all the bought objects to update the counter as an argument
++ shop function, where player can buy items *Problem: who do we do this, program runs precedural, counter wont update till shop function finishes*
