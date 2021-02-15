@@ -16,6 +16,8 @@ Talking about pull requests, I am aware of the small chance that someone will se
 
 I am currently working on this, if I find time and motivation. It is here for me to learn, so I will work on this when I want to.
 
+!["Image of Cluster"](cluster-screen.png)
+
 ## Currently implemented features
 
 Not much unfortunalty^^
@@ -32,15 +34,15 @@ Not much unfortunalty^^
 
 ### "frontend"
 
-* [] save progress
-* [] more variety in the shop
+* [ ] save progress
+* [ ] more variety in the shop
 
 ### "backend"
 
-* [] fix enormous input lag
-* [] display shop programatically
-* [] make responsive
-* [] document everything with Rust
+* [ ] fix enormous input lag
+* [ ] display shop programatically
+* [ ] make responsive
+* [ ] document everything with Rust
 
 ## Conclusion
 
