@@ -5,50 +5,11 @@ use std::thread;
 use std::time::Duration;
 use termion::{async_stdin, event::Key, input::TermRead, raw::IntoRawMode, terminal_size};
 
-/// Stores all the information regarding the player, like to current points, his multiplier and his highscore (not yet implemented)
-#[derive(Debug)]
-struct Player {
-    points: u128,
-    multiplier: u128,
-    highscore: u128,
-}
+mod item;
+mod player;
 
-impl Player {
-    /// Update the mutliplier and take into consideration the amount of items. Useful to update the multiplier at launch
-    fn initial_multiplier(&mut self, item1: &Item) {
-        self.multiplier = item1.amount
-    }
-
-    /// Updated the points counter by adding the multiplier (yes I know it's weird, that the multiplier gets added instead of multiplier...)
-    fn points_oneit(&mut self) {
-        self.points = self.points + self.multiplier;
-    }
-
-    /// Updates the multiplier with the given update parameter, can be used for the shop
-    fn update_multiplier(&mut self, update: u128) {
-        self.multiplier = (self.multiplier + update)
-    }
-}
-
-/// Stores all the information regarding an item, like name, price, multiplier and amount
-#[derive(Debug)]
-struct Item {
-    name: String,
-    price: u128,
-    multiplier: u128,
-    amount: u128,
-}
-
-impl Item {
-    /// Handles buying an item. First checks, if player has enough points to buy, updates the multiplier, removes the price from the players points, increases the amount of the item
-    fn buy(&mut self, mut playerstats: &mut Player) {
-        if playerstats.points >= self.price {
-            playerstats.update_multiplier(self.multiplier);
-            playerstats.points -= self.price;
-            self.amount += 1
-        }
-    }
-}
+use crate::item::Item;
+use crate::player::Player;
 
 /// exit function, which prints playerstats and item1 struct data for debug
 fn _exitdebug(playerstats: &Player, item1: &Item) {
@@ -57,7 +18,7 @@ fn _exitdebug(playerstats: &Player, item1: &Item) {
 }
 
 /// Function to exit the game, here stuff like saving will be handled (not yet implemented)
-fn exit(playerstats: &Player, item1: &Item) {}
+fn _exit(playerstats: &Player, item1: &Item) {}
 
 fn main() {
     // initial setup
@@ -73,7 +34,7 @@ fn main() {
     };
 
     // shop - setup items
-    let mut item1 = Item {
+    let mut item1 = item::Item {
         name: String::from("Simple add"),
         price: 10,
         multiplier: 2,
