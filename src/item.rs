@@ -1,6 +1,7 @@
 //! Stores all the information regarding an item, like name, price, multiplier and amount
 
-use crate::Player;
+use crate::player;
+use crate::player::Player;
 
 #[derive(Debug)]
 pub struct Item {

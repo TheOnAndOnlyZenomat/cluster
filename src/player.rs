@@ -1,6 +1,7 @@
 //! Stores all the information regarding the player, like to current points, his multiplier and his highscore (not yet implemented)
 
-use crate::Item;
+use crate::item;
+use crate::item::Item;
 
 #[derive(Debug)]
 pub struct Player {
@@ -22,6 +23,6 @@ impl Player {
 
     /// Updates the multiplier with the given update parameter, can be used for the shop
     pub fn update_multiplier(&mut self, update: u128) {
-        self.multiplier = (self.multiplier + update)
+        self.multiplier = self.multiplier + update
     }
 }
