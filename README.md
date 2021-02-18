@@ -42,7 +42,7 @@ Not much unfortunalty^^
 * [ ] fix enormous input lag
 * [ ] display shop programatically
 * [ ] make responsive
-* [ ] document everything with Rust
+* [x] document everything with Rust
 
 ## Conclusion
 

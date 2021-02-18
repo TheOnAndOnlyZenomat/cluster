@@ -28,6 +28,7 @@ pub fn save(savefile: &String, playerstats: &Player, item1: &Item) {
     }
 }
 
+/// function to load the save data and pass it to the program
 pub fn loadsavedata(savefile: &String, playerstats: &mut Player, item1: &mut Item) {
     let savedata: String;
     match fs::read_to_string(savefile) {
@@ -49,6 +50,7 @@ pub fn loadsavedata(savefile: &String, playerstats: &mut Player, item1: &mut Ite
     };
 }
 
+/// local function to parse the save file, returns a tuple with all the data
 fn parsesavedata(savedata: String) -> (String, String, String, String) {
     let mut playerpoints = String::new();
     let mut playermultiplier = String::new();
