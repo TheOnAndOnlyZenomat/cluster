@@ -1,7 +1,6 @@
 //! Stores all the information regarding the player, like to current points, his multiplier and his highscore (not yet implemented)
 
-use crate::item;
-use crate::item::Item;
+use crate::Item;
 
 #[derive(Debug)]
 pub struct Player {
@@ -13,7 +12,7 @@ pub struct Player {
 impl Player {
     /// Update the mutliplier and take into consideration the amount of items. Useful to update the multiplier at launch
     pub fn initial_multiplier(&mut self, item1: &Item) {
-        self.multiplier = item1.amount
+        self.multiplier = item1.amount * item1.multiplier
     }
 
     /// Updated the points counter by adding the multiplier (yes I know it's weird, that the multiplier gets added instead of multiplier...)
