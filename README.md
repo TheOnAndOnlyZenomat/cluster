@@ -34,7 +34,7 @@ Not much unfortunalty^^
 
 ### "frontend"
 
-* [ ] save progress
+* [x] save progress
 * [ ] more variety in the shop
 
 ### "backend"
