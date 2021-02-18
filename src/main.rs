@@ -28,8 +28,11 @@ fn _exitdebug(stdout: RawTerminal<Stdout>, playerstats: &Player, item1: &Item) {
 }
 
 /// Function to exit the game, here stuff like saving will be handled
-fn exit(stdout: &RawTerminal<Stdout>, savefile: &String, playerstats: &Player, item1: &Item) {
-    stdout.suspend_raw_mode(); // return the terminal from raw mode to it's previous state
+fn exit(stdout: &mut RawTerminal<Stdout>, savefile: &String, playerstats: &Player, item1: &Item) {
+    writeln!(stdout, "{}", termion::clear::All).unwrap();
+    stdout
+        .suspend_raw_mode()
+        .expect("Error suspending raw mode"); // return the terminal from raw mode to it's previous state
 
     savesystem::save(&savefile, &playerstats, &item1);
 }
@@ -38,7 +41,9 @@ fn main() {
     // initial setup
     let mut stdin = async_stdin().keys();
     let mut stdout: RawTerminal<Stdout> = stdout().into_raw_mode().unwrap();
-    stdout.suspend_raw_mode();
+    stdout
+        .suspend_raw_mode()
+        .expect("Error suspending raw mode");
     let (termwidth, termheight) = terminal_size().unwrap(); //assigns the touple terinalwidth, terminalhight to the width and height of the terminal
 
     let savefile = String::from("./save.txt"); // defines savefile
@@ -63,7 +68,9 @@ fn main() {
     // update multiplier and take in consideration the amount of items
     playerstats.initial_multiplier(&item1);
 
-    stdout.activate_raw_mode();
+    stdout
+        .activate_raw_mode()
+        .expect("Error activating raw mode");
 
     // Displayloop
     loop {
@@ -93,7 +100,7 @@ fn main() {
         if let Some(c) = stdin.next() {
             match c.unwrap() {
                 Key::Char('a') => playerstats.points += 1,
-                Key::Char('q') => exit(&stdout, &savefile, &playerstats, &item1),
+                Key::Char('q') => exit(&mut stdout, &savefile, &playerstats, &item1),
                 Key::Char('1') => item1.buy(&mut playerstats),
                 //Key::Char('2') => (multiplier, counter) = shop('2', counter, multiplier),
                 _ => {}

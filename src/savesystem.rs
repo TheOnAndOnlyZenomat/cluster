@@ -14,9 +14,18 @@ use std::fs;
 ///
 /// returns a result, which is () on success
 pub fn save(savefile: &String, playerstats: &Player, item1: &Item) {
+    let highscore;
+
+    // checks if highscore value has to be written
+    if playerstats.highscore < playerstats.points {
+        highscore = playerstats.points;
+    } else {
+        highscore = playerstats.highscore;
+    };
+
     let savedata: String = format!(
         "playerpoints:{}\nplayermultiplier:{}\nplayerhighscore:{}\nitemoneamount:{}",
-        playerstats.points, playerstats.multiplier, playerstats.highscore, item1.amount
+        playerstats.points, playerstats.multiplier, highscore, item1.amount
     );
 
     match fs::write(savefile, savedata) {
