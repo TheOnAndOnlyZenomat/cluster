@@ -28,13 +28,19 @@ fn _exitdebug(stdout: RawTerminal<Stdout>, playerstats: &Player, item1: &Item) {
 }
 
 /// Function to exit the game, here stuff like saving will be handled
-fn exit(stdout: &mut RawTerminal<Stdout>, savefile: &String, playerstats: &Player, item1: &Item) {
+fn exit(
+    stdout: &mut RawTerminal<Stdout>,
+    savefile: &String,
+    playerstats: &Player,
+    item1: &Item,
+    item2: &Item,
+) {
     writeln!(stdout, "{}", termion::clear::All).unwrap();
     stdout
         .suspend_raw_mode()
         .expect("Error suspending raw mode"); // return the terminal from raw mode to it's previous state
 
-    savesystem::save(&savefile, &playerstats, &item1);
+    savesystem::save(&savefile, &playerstats, &item1, &item2);
 }
 
 fn main() {
@@ -63,10 +69,17 @@ fn main() {
         amount: 0,
     };
 
-    savesystem::loadsavedata(&savefile, &mut playerstats, &mut item1);
+    let mut item2 = Item {
+        name: String::from("Double add"),
+        price: 100,
+        multiplier: 10,
+        amount: 0,
+    };
 
-    // update multiplier and take in consideration the amount of items
-    playerstats.initial_multiplier(&item1);
+    //savesystem::loadsavedata(&savefile, &mut playerstats, &mut item1, &mut item2);
+    savesystem::parsesavedatabyline(&savefile, &mut playerstats, &mut item1, &mut item2);
+
+    return;
 
     stdout
         .activate_raw_mode()
@@ -83,16 +96,20 @@ fn main() {
         // this println prints the total number of points, the delta and the shop
         writeln!(
             stdout,
-            "{}{}Total: {}{}Delta: +{}{}1: {} ({}) - {}{}",
+            "{}{}Total: {}{}Delta: +{}{}1: {} ({}) - {}{}2: {} ({}) - {}{}",
             termion::clear::All,         //clears the terminal screen
             termion::cursor::Goto(1, 1), // positions the cursor at column 1, line 1, prints the points in the top left corner
             playerstats.points,
             termion::cursor::Goto(termwidth - (7 + multiplierlength + pointslength), 1), // postions the cursor at column 80, line 1, prints the delta in the top right
             playerstats.multiplier,
-            termion::cursor::Goto(1, termheight),
+            termion::cursor::Goto(1, termheight - 1),
             item1.name,
             item1.price,
             item1.amount,
+            termion::cursor::Goto(1, termheight),
+            item2.name,
+            item2.price,
+            item2.amount,
             termion::cursor::Goto(1, 1)
         )
         .unwrap();
@@ -100,9 +117,9 @@ fn main() {
         if let Some(c) = stdin.next() {
             match c.unwrap() {
                 Key::Char('a') => playerstats.points += 1,
-                Key::Char('q') => exit(&mut stdout, &savefile, &playerstats, &item1),
+                Key::Char('q') => exit(&mut stdout, &savefile, &playerstats, &item1, &item2),
                 Key::Char('1') => item1.buy(&mut playerstats),
-                //Key::Char('2') => (multiplier, counter) = shop('2', counter, multiplier),
+                Key::Char('2') => item2.buy(&mut playerstats),
                 _ => {}
             }
         }

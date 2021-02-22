@@ -11,8 +11,8 @@ pub struct Player {
 
 impl Player {
     /// Update the mutliplier and take into consideration the amount of items. Useful to update the multiplier at launch
-    pub fn initial_multiplier(&mut self, item1: &Item) {
-        self.multiplier = item1.amount * item1.multiplier
+    pub fn initial_multiplier(&mut self, item1: &Item, item2: &Item) {
+        self.multiplier = (item1.amount * item1.multiplier) + (item2.amount * item2.multiplier);
     }
 
     /// Updated the points counter by adding the multiplier (yes I know it's weird, that the multiplier gets added instead of multiplier...)
