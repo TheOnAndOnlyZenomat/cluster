@@ -10,7 +10,7 @@ For now it is not very advanced, because it is written by an absolute Rust begin
 
 This approach already shows a minor issue, which is, that the buying and clicking is only updated once per second, which introduces a lot of input lag and only one increment per second if clicking manually. I am currently thinking about how one can solve that, so if you see this repo and have a tipp or ideam feel free to create an issue or make a pull request.
 
-Talking about pull requests, I am aware of the small chance that someone will see this and willing to contribute(^^)), but I am open for any contribution.
+Talking about pull requests, I am aware of the small chance that someone will see this and willing to contribute(^^), but I am open for any contribution.
 
 ## State of this project
 
@@ -25,23 +25,22 @@ Not much unfortunalty^^
 * clicking to manually increase the counter
 * basic idea of a shop
   * currently one item implemented
-  * click a button, it will purchase the item and add increases the multiplier
+  * click a button, it will purchase the item and the `add`-function increases the multiplier
   * so like the infrastructure is there
-* adjusts to the terminal width and height on launch, but not afterwards (this could be easily fixed tho)
-* prints current points, delta of points, shop with amount of each item
+* prints current points, delta of points, shop with amount of each item and price
+* saving and loading
 
 ## Planned features
 
 ### "frontend"
 
-* [x] save progress
+* [x] save and load progress
 * [ ] more variety in the shop
 
 ### "backend"
 
 * [ ] fix enormous input lag
 * [ ] display shop programatically
-* [ ] make responsive
 * [x] document everything with Rust
 
 ## Conclusion
