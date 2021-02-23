@@ -76,10 +76,9 @@ fn main() {
         amount: 0,
     };
 
-    //savesystem::loadsavedata(&savefile, &mut playerstats, &mut item1, &mut item2);
-    savesystem::parsesavedatabyline(&savefile, &mut playerstats, &mut item1, &mut item2);
+    savesystem::loadsavedata(&savefile, &mut playerstats, &mut item1, &mut item2);
 
-    return;
+    playerstats.initial_multiplier(&item1, &item2);
 
     stdout
         .activate_raw_mode()

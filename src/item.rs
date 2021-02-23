@@ -17,7 +17,7 @@ impl Item {
         if playerstats.points >= self.price {
             playerstats.update_multiplier(self.multiplier);
             playerstats.points -= self.price;
-            self.amount += 1
+            self.amount += 1;
         }
     }
 }

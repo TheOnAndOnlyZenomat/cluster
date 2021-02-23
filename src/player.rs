@@ -22,6 +22,6 @@ impl Player {
 
     /// Updates the multiplier with the given update parameter, can be used for the shop
     pub fn update_multiplier(&mut self, update: u128) {
-        self.multiplier = self.multiplier + update
+        self.multiplier = self.multiplier + update;
     }
 }
