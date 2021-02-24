@@ -8,8 +8,6 @@ The general idea of this game is, to push the counter higher and higher, by clic
 
 For now it is not very advanced, because it is written by an absolute Rust beginner, who learns everything on the way, by reading the official Rust book, reading documentation, looking at other peoples code, applying concepts he knows from other languages and looking for solutions.
 
-This approach already shows a minor issue, which is, that the buying and clicking is only updated once per second, which introduces a lot of input lag and only one increment per second if clicking manually. I am currently thinking about how one can solve that, so if you see this repo and have a tipp or ideam feel free to create an issue or make a pull request.
-
 Talking about pull requests, I am aware of the small chance that someone will see this and willing to contribute(^^), but I am open for any contribution.
 
 ## State of this project
@@ -39,7 +37,7 @@ Not much unfortunalty^^
 
 ### "backend"
 
-* [ ] fix enormous input lag
+* [x] fix enormous input lag
 * [ ] display shop programatically
 * [x] document everything with Rust
 
