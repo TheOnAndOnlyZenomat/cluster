@@ -2,6 +2,8 @@
 
 use crate::Item;
 
+use std::time::SystemTime;
+
 #[derive(Debug)]
 pub struct Player {
     pub points: u128,
@@ -16,8 +18,9 @@ impl Player {
     }
 
     /// Updated the points counter by adding the multiplier (yes I know it's weird, that the multiplier gets added instead of multiplier...)
-    pub fn points_oneit(&mut self) {
+    pub fn points_oneit(&mut self) -> SystemTime {
         self.points = self.points + self.multiplier;
+        SystemTime::now()
     }
 
     /// Updates the multiplier with the given update parameter, can be used for the shop
