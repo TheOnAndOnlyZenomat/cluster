@@ -18,6 +18,7 @@ impl Player {
     }
 
     /// Updated the points counter by adding the multiplier (yes I know it's weird, that the multiplier gets added instead of multiplier...)
+    /// also returns the current systemtime, so that we can check if since the last update one second has gone by
     pub fn points_oneit(&mut self) -> SystemTime {
         self.points = self.points + self.multiplier;
         SystemTime::now()
