@@ -94,6 +94,7 @@ fn main() {
 
     // Displayloop
     loop {
+        // check if the elapsed time from the last time update is greater than one sec, if yes, than add the delta
         if now.elapsed().unwrap() > Duration::from_millis(1000) {
             now = playerstats.points_oneit();
         }
@@ -133,7 +134,6 @@ fn main() {
             }
         }
         stdout.flush().unwrap();
-
         thread::sleep(Duration::from_millis(1)); // sleep for one second
     }
 }
