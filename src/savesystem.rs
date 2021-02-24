@@ -8,11 +8,10 @@ use crate::item::Item;
 
 use std::collections::HashMap;
 
-use std::fs;
 use fs::OpenOptions;
+use std::fs;
 
-use std::io::{Write, Read};
-
+use std::io::{Read, Write};
 
 /// function to save the game state
 ///
@@ -34,10 +33,11 @@ pub fn save(savefile: &String, playerstats: &Player, item1: &Item, item2: &Item)
         playerstats.points, highscore, item1.amount, item2.amount
     );
 
-    let mut file = OpenOptions::new().write(true)
-        .create_new(true)
+    let mut file = OpenOptions::new()
+        .write(true)
+        .create(true)
         .open(savefile)
-        .expect("Failed to open savefile");
+        .expect("Failed to open save file");
 
     file.write(&savedata.into_bytes()).expect("Failed to save");
 }
@@ -49,18 +49,15 @@ pub fn loadsavedata(
     playerstats: &mut Player,
     item1: &mut Item,
     item2: &mut Item,
-) -> std::io::Result<()>
-{
+) -> std::io::Result<()> {
     let mut savedata = HashMap::new();
 
-    let mut file = OpenOptions::new()
-        .read(true)
-        .open(savefile)?;
+    let mut file = OpenOptions::new().read(true).open(savefile)?;
 
     let mut savedataret = String::new();
 
     file.read_to_string(&mut savedataret)?;
-    
+
     for line in savedataret.lines() {
         let namelength = &line.split_whitespace().next().unwrap().len();
         let value = line[namelength + 1..].parse::<u128>().unwrap();

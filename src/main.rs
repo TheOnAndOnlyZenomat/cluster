@@ -2,11 +2,11 @@
 
 #![allow(unused_imports)]
 #![allow(unused_variables)]
+use savesystem::save;
 use std::io::Stdout;
 use std::io::{stdin, stdout, Read, Write};
 use std::thread;
-use std::time::Duration;
-use savesystem::save;
+use std::time::{Duration, SystemTime};
 use termion::{
     async_stdin,
     event::Key,
@@ -42,6 +42,7 @@ fn exit(
         .expect("Error suspending raw mode"); // return the terminal from raw mode to it's previous state
 
     savesystem::save(&savefile, &playerstats, &item1, &item2);
+    std::process::exit(0);
 }
 
 fn main() {
@@ -78,7 +79,8 @@ fn main() {
     };
 
     //Load the savedata, or save the default one
-    if let Err(err) = savesystem::loadsavedata(&savefile, &mut playerstats, &mut item1, &mut item2) {
+    if let Err(err) = savesystem::loadsavedata(&savefile, &mut playerstats, &mut item1, &mut item2)
+    {
         savesystem::save(&savefile, &playerstats, &item1, &item2);
     }
 
@@ -88,9 +90,13 @@ fn main() {
         .activate_raw_mode()
         .expect("Error activating raw mode");
 
+    let mut now = SystemTime::now();
+
     // Displayloop
     loop {
-        playerstats.points_oneit();
+        if now.elapsed().unwrap() > Duration::from_millis(1000) {
+            now = playerstats.points_oneit();
+        }
 
         // chekcs the length of the multiplier and points as a string, so that we can use that to display the interface without cutting anything off
         let multiplierlength = playerstats.multiplier.to_string().chars().count() as u16;
@@ -127,6 +133,7 @@ fn main() {
             }
         }
         stdout.flush().unwrap();
-        thread::sleep(Duration::from_millis(1000)); // sleep for one second
+
+        thread::sleep(Duration::from_millis(1)); // sleep for one second
     }
 }
