@@ -6,6 +6,7 @@ use std::io::Stdout;
 use std::io::{stdin, stdout, Read, Write};
 use std::thread;
 use std::time::Duration;
+use savesystem::save;
 use termion::{
     async_stdin,
     event::Key,
@@ -76,7 +77,10 @@ fn main() {
         amount: 0,
     };
 
-    savesystem::loadsavedata(&savefile, &mut playerstats, &mut item1, &mut item2);
+    //Load the savedata, or save the default one
+    if let Err(err) = savesystem::loadsavedata(&savefile, &mut playerstats, &mut item1, &mut item2) {
+        savesystem::save(&savefile, &playerstats, &item1, &item2);
+    }
 
     playerstats.initial_multiplier(&item1, &item2);
 
